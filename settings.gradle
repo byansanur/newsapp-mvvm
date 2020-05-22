@@ -1,0 +1,2 @@
+rootProject.name='NewsAppMVVM'
+include ':app'
