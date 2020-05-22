@@ -9,25 +9,45 @@ import com.byandev.newsappmvvm.util.Resources
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
+@Suppress("SameParameterValue")
 class NewsViewModel(
-    val newRepository : NewsRepository
+    private val newRepository : NewsRepository
 ) :ViewModel() {
 
     val breakingNews: MutableLiveData<Resources<NewsResponse>> = MutableLiveData()
-    var breakingNewsPage = 1
+    private var breakingNewsPage = 1
+
+    val searchNews: MutableLiveData<Resources<NewsResponse>> = MutableLiveData()
+    private var searchNewsPage = 1
 
     init {
         getBreakingNews("id")
     }
 
-    fun getBreakingNews(countryCode: String) = viewModelScope.launch {
+    private fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         breakingNews.postValue(Resources.Loading())
         val response = newRepository.getBreakingNews(countryCode, breakingNewsPage)
         breakingNews.postValue(handleBreakingNewsResponse(response))
 
     }
 
+    fun searchNews(query: String) = viewModelScope.launch {
+        searchNews.postValue(Resources.Loading())
+        val response = newRepository.searchNews(query, searchNewsPage)
+        searchNews.postValue(handleSearchNewsResponse(response))
+    }
+
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>) : Resources<NewsResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let {resultResponse ->
+                return Resources.Success(resultResponse)
+            }
+        }
+        return Resources.Error(response.message())
+    }
+
+
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resources<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {resultResponse ->
                 return Resources.Success(resultResponse)
