@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.byandev.newsappmvvm.R
 import com.byandev.newsappmvvm.ui.NewsActivity
 import com.byandev.newsappmvvm.ui.adapters.NewsAdapter
-import com.byandev.newsappmvvm.ui.viewModel.News.NewsViewModel
+import com.byandev.newsappmvvm.ui.viewModel.news.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_saved_news.*
 

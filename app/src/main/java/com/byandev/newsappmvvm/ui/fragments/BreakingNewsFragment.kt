@@ -1,9 +1,9 @@
 package com.byandev.newsappmvvm.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.byandev.newsappmvvm.R
 import com.byandev.newsappmvvm.ui.NewsActivity
 import com.byandev.newsappmvvm.ui.adapters.NewsAdapter
-import com.byandev.newsappmvvm.ui.viewModel.News.NewsViewModel
+import com.byandev.newsappmvvm.ui.viewModel.news.NewsViewModel
 import com.byandev.newsappmvvm.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.byandev.newsappmvvm.util.Resources
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
@@ -60,7 +60,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                 is Resources.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Log.e(TAG, "An error : $message")
+                        Toast.makeText(activity, "An error: $message", Toast.LENGTH_LONG).show()
                     }
                 }
                 is Resources.Loading -> {
