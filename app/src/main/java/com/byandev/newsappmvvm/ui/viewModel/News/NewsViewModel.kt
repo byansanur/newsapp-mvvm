@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byandev.newsappmvvm.db.repository.NewsRepository
 import com.byandev.newsappmvvm.models.NewsResponse
+import com.byandev.newsappmvvm.models.responseNews.Article
 import com.byandev.newsappmvvm.util.Resources
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -54,6 +55,16 @@ class NewsViewModel(
             }
         }
         return Resources.Error(response.message())
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        newRepository.upsert(article)
+    }
+
+    fun getSavedNews() = newRepository.getSavedNews()
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newRepository.deleteArticle(article)
     }
 
 
