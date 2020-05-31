@@ -26,7 +26,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'NewsApiKey', NewsApiKey
+        it.buildConfigField 'String', 'TokenKey', TokenKey
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

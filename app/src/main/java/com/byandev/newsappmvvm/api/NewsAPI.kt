@@ -1,6 +1,5 @@
 package com.byandev.newsappmvvm.api
 
-import com.byandev.newsappmvvm.BuildConfig
 import com.byandev.newsappmvvm.models.NewsResponse
 import com.byandev.newsappmvvm.util.Constants.Companion.API_KEY
 import retrofit2.Response

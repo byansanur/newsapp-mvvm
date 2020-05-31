@@ -16,7 +16,7 @@ import com.byandev.newsappmvvm.ui.adapters.NewsAdapter
 import com.byandev.newsappmvvm.ui.viewModel.news.NewsViewModel
 import com.byandev.newsappmvvm.util.Constants
 import com.byandev.newsappmvvm.util.Constants.Companion.SEARCH_TIME_DELAY
-import com.byandev.newsappmvvm.util.Resources
+import com.byandev.newsappmvvm.util.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import kotlinx.android.synthetic.main.fragment_search_news.*
 import kotlinx.android.synthetic.main.fragment_search_news.paginationProgressBar
@@ -63,7 +63,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
         viewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
-                is Resources.Success -> {
+                is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
@@ -74,13 +74,13 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
                         }
                     }
                 }
-                is Resources.Error -> {
+                is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
                         Toast.makeText(activity, "An error: $message", Toast.LENGTH_LONG).show()
                     }
                 }
-                is Resources.Loading -> {
+                is Resource.Loading -> {
                     showProgressBar()
                 }
             }
